@@ -13,19 +13,19 @@ router.post("/", (request, response, next) => {
     response.send("CREATE POST")
 });
 
-router.get("/:id", (request, response, next) => {
+router.get("/:post", (request, response, next) => {
     response.send("POST")
 });
 
-router.get("/:id/edit", (request, response, next) => {
+router.get("/:post/edit", (request, response, next) => {
     response.send("EDIT POST")
 });
 
-router.put("/:id", (request, response, next) => {
+router.put("/:post", (request, response, next) => {
     response.send("UPDATE POST")
 });
 
-router.delete("/:id", (request, response, next) => {
+router.delete("/:post", (request, response, next) => {
     response.send("DELETE POST")
 });
 
