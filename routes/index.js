@@ -1,21 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
+const controller = require('../controllers/index');
+
 router.get('/', (request, response, next) => {
   response.render('index', { title: 'Surf Shop - Home' });
 });
 
-router.get("/sign-up", (request, response) => {
-  response.send("SIGN-UP");
-});
+router.get("/sign-up", controller.user.signup);
 
 router.get("/sign-in", (request, response) => {
   response.send("SIGNING-IN PAGE");
 });
 
-router.post("/sign-in", (request, response) => {
-  response.send("SIGN-IN");
-});
+router.post("/sign-in", controller.user.signin);
 
 router.post("/sign-out", (request, response) => {
   response.send("SIGN-OUT");
