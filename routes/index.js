@@ -7,7 +7,7 @@ router.get('/', (request, response, next) => {
   response.render('index', { title: 'Surf Shop - Home' });
 });
 
-router.get("/sign-up", controller.user.signup);
+router.post("/sign-up", controller.user.signup);
 
 router.get("/sign-in", (request, response) => {
   response.send("SIGNING-IN PAGE");

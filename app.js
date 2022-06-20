@@ -6,6 +6,9 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 
+const mongoose = require('./database/mongoose');
+
+
 const routers = {
   index: require('./routes/index'),
   users: require('./routes/users'),
@@ -16,6 +19,13 @@ const routers = {
 const User = require('./models/user');
 
 const app = express();
+
+mongoose.connect();
+mongoose.database.on('error', console.error.bind(console, 'Connection error:'));
+mongoose.database.once('open', () => {
+    console.log('Connected to MongoDB!');
+});
+
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
