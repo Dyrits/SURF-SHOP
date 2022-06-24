@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 const { user } = require("../controllers");
 const { attempt } = require("../middleware");
+
 
 router.get('/', (request, response, next) => {
   response.render("index", { title: "Surf Shop - Home" });
@@ -14,10 +16,11 @@ router.get("/sign-in", (request, response) => {
   response.send("SIGNING-IN PAGE");
 });
 
-router.post("/sign-in", user.signin);
+router.post("/sign-in", passport.authenticate("local",  { successRedirect: "/",  failureRedirect: "/sign-in" }, null ));
 
-router.post("/sign-out", (request, response) => {
-  response.send("SIGN-OUT");
+router.get("/sign-out", (request, response) => {
+    request.logout();
+    response.redirect("/");
 });
 
 router.get("/profile", (request, response) => {
