@@ -1,19 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const controller = require('../controllers/index');
+const { user } = require("../controllers");
+const { attempt } = require("../middleware");
 
 router.get('/', (request, response, next) => {
-  response.render('index', { title: 'Surf Shop - Home' });
+  response.render("index", { title: "Surf Shop - Home" });
 });
 
-router.post("/sign-up", controller.user.signup);
+router.post("/sign-up", attempt(user.signup));
 
 router.get("/sign-in", (request, response) => {
   response.send("SIGNING-IN PAGE");
 });
 
-router.post("/sign-in", controller.user.signin);
+router.post("/sign-in", user.signin);
 
 router.post("/sign-out", (request, response) => {
   response.send("SIGN-OUT");

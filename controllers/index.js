@@ -2,18 +2,17 @@ const User = require('../models/user');
 
 module.exports = {
     user: {
-        signup ({ body }, response, next) {
+        async signup({body}, response, next) {
             console.info("Signing up user...");
-            User.register(new User({ username: body.username }), body.password, (error, user) => {
-                if (error) {
-                    console.error(error);
-                    next(error);
-                } else {
-                    console.info("User signed up successfully.");
-                    response.redirect('/');
-                }
-            });
+            const { password, ...data } = body;
+            const user = await User.register(new User(data), password);
+            console.info("User signed up successfully!");
+            console.info("User:", user);
+            response.redirect("/");
         },
-        signin (request, response) {}
+        signin (request, response) {
+            console.info("Signing in user...");
+            response.redirect("/");
+        }
     }
 };
