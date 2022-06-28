@@ -1,17 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (request, response, next) => {
-    response.send("POSTS")
-});
+const { $render, post } = require('../controllers/posts');
+const { attempt } = require("../middleware");
 
-router.get("/new", (request, response, next) => {
-    response.send("NEW POST")
-});
+router.get('/', attempt($render.posts));
 
-router.post("/", (request, response, next) => {
-    response.send("CREATE POST")
-});
+router.get("/new", $render.new);
+
+router.post("/", attempt(post.create));
 
 router.get("/:post", (request, response, next) => {
     response.send("POST")
