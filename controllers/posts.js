@@ -2,14 +2,18 @@ const Post = require('../models/post');
 
 module.exports = {
     $render: {
-        "posts": async (request, response, next) => {
+        "index": async (request, response, next) => {
             const posts = await Post.find({});
             response.render("posts/index", { posts });
         },
-        "new": (request, response, next) => { response.render("posts/new"); }
+        "new": (request, response, next) => { response.render("posts/new"); },
+        "show": async ({ params }, response, next) => {
+            const post = await Post.findById(params.id);
+            response.render("posts/show", { post });
+        }
     },
     post: {
-        create: async ({body}, response, next) => {
+        create: async ({ body }, response, next) => {
             const { id } = await Post.create(body)
             response.redirect(`/posts/${id}`);
         }
