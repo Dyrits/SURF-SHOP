@@ -12,9 +12,7 @@ router.post("/", attempt(post.create));
 
 router.get("/:id", attempt($render.show));
 
-router.get("/:id/edit", (request, response, next) => {
-    response.send("EDIT POST")
-});
+router.get("/:id/edit", attempt($render.edit));
 
 router.put("/:id", (request, response, next) => {
     response.send("UPDATE POST")

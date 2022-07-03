@@ -10,6 +10,10 @@ module.exports = {
         "show": async ({ params }, response, next) => {
             const post = await Post.findById(params.id);
             response.render("posts/show", { post });
+        },
+        "edit": async ({ params }, response, next) => {
+            const post = await Post.findById(params.id);
+            response.render("posts/edit", { post });
         }
     },
     post: {
