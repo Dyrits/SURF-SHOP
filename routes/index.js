@@ -16,7 +16,6 @@ router.get("/sign-in", (request, response) => {
 });
 
 router.post("/sign-in", user.signin);
-
 router.get("/sign-out", user.signout);
 
 router.get("/profile", (request, response) => {
