@@ -2,6 +2,11 @@
 <p>Price: <%= post.price %></p>
 <p>Description: <%= post.description %></p>
 <p>Location: <%= post.location %></p>
+<div>
+    <% for (image of post.images) { %>
+        <img src="<%= image.url %>" alt="<%= post.title %>" width="200" height="200">
+    <% } %>
+</div>
 <div><a href="/posts/<%= post.id %>/edit"><button>Edit post</button></a></div>
 <div>
     <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">

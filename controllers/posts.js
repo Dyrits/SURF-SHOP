@@ -1,4 +1,12 @@
-const Post = require('../models/post');
+const cloudinary = require("cloudinary");
+
+const Post = require("../models/post");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 module.exports = {
     posts: {
@@ -21,7 +29,12 @@ module.exports = {
                 response.render("posts/edit", { post });
             }
         },
-        create: async ({ body }, response, next) => {
+        create: async ({ body, files }, response, next) => {
+            body.images = [];
+            for (const file of files) {
+                const { secure_url, public_id } = await cloudinary.v2.uploader.upload(file.path);
+                body.images.push({ url: secure_url, id: public_id });
+            }
             const { id } = await Post.create(body)
             response.redirect(`/posts/${id}`);
         },
