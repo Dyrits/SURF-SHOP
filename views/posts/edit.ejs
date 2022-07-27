@@ -3,6 +3,12 @@
 <form action="/posts/<%= post.id %>?_method=PUT" method="POST">
     <div><input type="text" name="title" placeholder="Title~" value="<%= post.title %>"></div>
     <div><input type="text" name="price" placeholder="Price~" value="<%= post.price %>"></div>
+    <div><input type="file" name="images" accept="images/*" multiple></div>
+    <div>
+        <% for (image of post.images) { %>
+            <img src="<%= image.url %>" alt="<%= post.title %>" width="100" height="100">
+        <% } %>
+    </div>
     <div><textarea name="description" id="" cols="30" rows="10" placeholder="Description~"><%= post.description %></textarea></div>
     <div><input type="text" name="location" placeholder="Location~" value="<%= post.location %>"></div>
     <div><input type="submit"></div>
