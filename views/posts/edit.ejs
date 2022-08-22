@@ -20,10 +20,8 @@
     console.log("Hey");
     const form = document.querySelector("form");
     form.addEventListener("submit", function($event) {
-        $event.preventDefault();
         const files = document.querySelector('#images').files;
         const checkboxes = document.querySelectorAll(".confirm-deletion");
-        console.log([...checkboxes].filter(checkbox => checkbox.checked).length);
         const total = files.length + checkboxes.length - [...checkboxes].filter(checkbox => checkbox.checked).length;
         if (total > 4) {
             $event.preventDefault()
