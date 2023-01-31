@@ -25,7 +25,7 @@ const app = express();
 mongoose.connect();
 mongoose.database.on("error", console.error.bind(console, "Connection error:"));
 mongoose.database.once("open", () => {
-    console.log("Connected to MongoDB!");
+  console.log("Connected to MongoDB!");
 });
 
 
@@ -36,16 +36,16 @@ app.set("view engine", "ejs");
 // Middlewares:
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(override("_method"));
 
 // Session configuration:
 app.use(session({
-    secret: "#SECRET#",
-    resave: false,
-    saveUninitialized: true,
+  secret: "#SECRET#",
+  resave: false,
+  saveUninitialized: true,
 }));
 app.use(passport.initialize());
 app.use(passport.session());

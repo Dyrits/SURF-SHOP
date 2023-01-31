@@ -1,14 +1,8 @@
-const cloudinary = require("cloudinary");
 const multer = require("multer");
 
+const cloudinary = require("../services/cloudinary");
+
 const Post = require("../models/post");
-
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 module.exports = {
     posts: {
@@ -33,20 +27,22 @@ module.exports = {
         },
         create: async ({ body, files }, response, next) => {
             body.images = [];
-            for (const file of files) {
-                const { secure_url, public_id } = await cloudinary.v2.uploader.upload(file.path);
-                body.images.push({ url: secure_url, id: public_id });
-            }
+            body.images = body.images.concat(await cloudinary.upload(files));
             const { id } = await Post.create(body)
             response.redirect(`/posts/${id}`);
         },
-        update: async ({ params, body }, response, next) => {
-            await Post.findByIdAndUpdate(params.id, body);
+        update: async ({ params, body, files }, response, next) => {
+            let post = await Post.findById(params.id);
+            const deletions = body["deletions"] || [];
+            await cloudinary.delete(deletions);
+            post.images = post.images.filter(image => !deletions.includes(image.id)).concat(await cloudinary.upload(files));
+            post = Object.assign(post, body);
+            await post.save();
             response.redirect(`/posts/${params.id}`);
         },
         delete: async ({ params }, response, next) => {
             await Post.findByIdAndDelete(params.id);
             response.redirect("/posts");
         }
-    }
+    },
 }

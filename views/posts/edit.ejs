@@ -1,6 +1,6 @@
-<h1>New</h1>
+<h1>Edit</h1>
 
-<form action="/posts/<%= post.id %>?_method=PUT" method="POST">
+<form action="/posts/<%= post.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
     <div><input type="text" name="title" placeholder="Title~" value="<%= post.title %>"></div>
     <div><input type="text" name="price" placeholder="Price~" value="<%= post.price %>"></div>
     <div><input type="file" name="images" accept="image/*" multiple id="images"></div>
@@ -8,7 +8,7 @@
         <% for (image of post.images) { %>
             <img src="<%= image.url %>" alt="<%= post.title %>" width="100" height="100">
             <label for="image<%= image.id %>">Delete ?</label>
-            <input type="checkbox" name="confirm-deletion" value="<%= image.id %>" id="image<%= image.id %>" class="confirm-deletion">
+            <input type="checkbox" name="deletions[]" value="<%= image.id %>" id="image<%= image.id %>" class="confirm-deletion">
         <% } %>
     </div>
     <div><textarea name="description" id="" cols="30" rows="10" placeholder="Description~"><%= post.description %></textarea></div>
@@ -17,7 +17,6 @@
 </form>
 
 <script>
-    console.log("Hey");
     const form = document.querySelector("form");
     form.addEventListener("submit", function($event) {
         const files = document.querySelector('#images').files;
