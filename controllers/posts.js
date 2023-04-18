@@ -1,6 +1,7 @@
 const multer = require("multer");
 
 const cloudinary = require("../services/cloudinary");
+const mapbox = require("../services/mapbox");
 
 const Post = require("../models/post");
 
@@ -30,6 +31,8 @@ module.exports = {
     create: async ({ body, files }, response, next) => {
       body.images = [];
       body.images = body.images.concat(await cloudinary.upload(files));
+      const coordinates = await mapbox.search(body.location);
+      body = Object.assign(body, { coordinates });
       const { id } = await Post.create(body);
       response.redirect(`/posts/${id}`);
     },

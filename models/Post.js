@@ -6,8 +6,7 @@ const PostSchema = new mongoose.Schema({
     description: String,
     images: [{ url: String, id: String}],
     location: String,
-    latitude: Number,
-    longitude: Number,
+    coordinates: [Number],
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     reviews : [ { type: mongoose.Schema.Types.ObjectId, ref: "Review" } ]
 });

@@ -52,51 +52,33 @@
 </div>
 
 <script>
-
+  const data = <%- JSON.stringify(post) %>;
   mapboxgl.accessToken = "pk.eyJ1IjoiZHlyaXRzIiwiYSI6ImNsZmZiMWw4bDNuZnkzc250NHgxMm9uc2sifQ.q9tvE4qr0wJeAyFNc-bRSg";
 
   const map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/light-v11",
-    center: [-96, 37.8],
-    zoom: 3
+    center: data.coordinates,
+    zoom: 4
   });
 
-  const geojson = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [-77.032, 38.913]
-        },
-        properties: {
-          title: "Mapbox",
-          description: "Washington, D.C."
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [-122.414, 37.776]
-        },
-        properties: {
-          title: "Mapbox",
-          description: "San Francisco, California"
-        }
-      }
-    ]
+  const marker = {
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: data.coordinates
+    },
+    properties: {
+      title: data.title,
+      description: data.location
+    }
   };
 
-  for (const feature of geojson.features) {
-    const div = document.createElement("div");
-    div.className = "marker";
-    new mapboxgl.Marker(div).setLngLat(feature.geometry.coordinates).setPopup(
-      new mapboxgl.Popup({ offset: 25 }).setHTML(`<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`)
-    ).addTo(map);
-  }
+  const div = document.createElement("div");
+  div.className = "marker";
+  new mapboxgl.Marker(div).setLngLat(marker.geometry.coordinates).setPopup(
+    new mapboxgl.Popup({offset: 25}).setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`)
+  ).addTo(map);
 
 
 </script>
