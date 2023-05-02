@@ -43,6 +43,10 @@ module.exports = {
       post.images = post.images
         .filter(image => !deletions.includes(image.id))
         .concat(await cloudinary.upload(files));
+      if (post.location !== body.location) {
+        const coordinates = await mapbox.search(body.location);
+        body = Object.assign(body, { coordinates });
+      }
       post = Object.assign(post, body);
       await post.save();
       response.redirect(`/posts/${params.id}`);
