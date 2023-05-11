@@ -1,6 +1,7 @@
 require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
+const engine = require("ejs-mate");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -28,15 +29,15 @@ mongoose.database.once("open", () => {
   console.log("Connected to MongoDB!");
 });
 
-
 // View engine setup
+app.engine("ejs", engine);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Middlewares:
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(override("_method"));
@@ -45,7 +46,7 @@ app.use(override("_method"));
 app.use(session({
   secret: "#SECRET#",
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());

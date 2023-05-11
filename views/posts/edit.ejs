@@ -1,3 +1,5 @@
+<% layout("layouts/base") -%>
+
 <h1>Edit</h1>
 
 <form action="/posts/<%= post.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
@@ -16,15 +18,4 @@
     <div><input type="submit"></div>
 </form>
 
-<script>
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function($event) {
-        const files = document.querySelector('#images').files;
-        const checkboxes = document.querySelectorAll(".confirm-deletion");
-        const total = files.length + checkboxes.length - [...checkboxes].filter(checkbox => checkbox.checked).length;
-        if (total > 4) {
-            $event.preventDefault()
-            alert("A post can only contains up to 4 images.");
-        }
-    });
-</script>
+<script src="/scripts/posts/edit.js"></script>

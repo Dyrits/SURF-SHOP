@@ -1,36 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  #map {
-    width: 400px;
-    height: 300px;
-  }
-
-  .marker {
-    background-image: url("/assets/mapbox-icon.png");
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .mapboxgl-popup {
-    max-width: 200px;
-  }
-
-  .mapboxgl-popup-content {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-  }
-</style>
+<% layout("layouts/posts/show") -%>
 
 <h1><%= post.title %></h1>
 <p>Price: <%= post.price %></p>
@@ -50,35 +18,3 @@
         <input type="submit" value="Delete post">
     </form>
 </div>
-
-<script>
-  const data = <%- JSON.stringify(post) %>;
-  mapboxgl.accessToken = "pk.eyJ1IjoiZHlyaXRzIiwiYSI6ImNsZmZiMWw4bDNuZnkzc250NHgxMm9uc2sifQ.q9tvE4qr0wJeAyFNc-bRSg";
-
-  const map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/light-v11",
-    center: data.coordinates,
-    zoom: 4
-  });
-
-  const marker = {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: data.coordinates
-    },
-    properties: {
-      title: data.title,
-      description: data.location
-    }
-  };
-
-  const div = document.createElement("div");
-  div.className = "marker";
-  new mapboxgl.Marker(div).setLngLat(marker.geometry.coordinates).setPopup(
-    new mapboxgl.Popup({offset: 25}).setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`)
-  ).addTo(map);
-
-
-</script>
