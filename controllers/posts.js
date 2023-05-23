@@ -10,14 +10,14 @@ module.exports = {
     render: {
       index: async (request, response, next) => {
         const posts = await Post.find({});
-        response.render("posts/index", { posts });
+        response.render("posts/index", { posts, title: "Surf Shop - Posts" });
       }
     }
   },
   post: {
     render: {
       new: (request, response, next) => {
-        response.render("posts/new");
+        response.render("posts/new", { title: "Surf Shop - Create a new post" });
       },
       show: async ({ params }, response, next) => {
         const post = await Post.findById(params.id);

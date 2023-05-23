@@ -11,7 +11,6 @@ const override = require("method-override");
 
 const mongoose = require("./database/mongoose");
 
-
 const routers = {
   index: require("./routes/index"),
   users: require("./routes/users"),
@@ -55,6 +54,11 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((request, response, next) => {
+  response.locals.title = "Surf Shop";
+  next();
+});
 
 // Mount routes
 app.use("/", routers.index);
