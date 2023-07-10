@@ -28,12 +28,14 @@ module.exports = {
         response.render("posts/edit", { post });
       }
     },
-    create: async ({ body, files }, response, next) => {
+    create: async ({ body, files, session }, response, next) => {
       body.images = [];
       body.images = body.images.concat(await cloudinary.upload(files));
       const coordinates = await mapbox.search(body.location);
       body = Object.assign(body, { coordinates });
       const { id } = await Post.create(body);
+      session.messages = {};
+      session.messages.success = "Post created successfully!";
       response.redirect(`/posts/${id}`);
     },
     update: async ({ params, body, files }, response, next) => {

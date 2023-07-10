@@ -55,10 +55,8 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((request, response, next) => {
-  response.locals.title = "Surf Shop";
-  next();
-});
+// Local variables middleware
+app.use(require("./middleware").locals);
 
 // Mount routes
 app.use("/", routers.index);
@@ -73,12 +71,17 @@ app.use((request, response, next) => {
 
 // Error handler
 app.use((error, request, response, next) => {
+  /*
   // Set locals, only providing error in development
   response.locals.message = error.message;
   response.locals.error = request.app.get("env") === "development" ? error : {};
   // Render the error page
   response.status(error.status || 500);
   response.render("error");
+  */
+  console.error(error);
+  request.session.messages = { error: error.message };
+  response.redirect("back");
 });
 
 module.exports = app;
