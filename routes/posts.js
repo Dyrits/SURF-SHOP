@@ -10,9 +10,9 @@ const { attempt } = require("../middleware");
 router.get("/", attempt(posts.render.index));
 router.get("/new", post.render.new);
 router.post("/", upload.array("images", 4), attempt(post.create));
-router.get("/:id", attempt(post.render.show));
-router.get("/:id/edit", attempt(post.render.edit));
-router.put("/:id", upload.array("images", 4), attempt(post.update));
-router.delete("/:id", attempt(post.delete));
+router.get("/:post", attempt(post.render.show));
+router.get("/:post/edit", attempt(post.render.edit));
+router.put("/:post", upload.array("images", 4), attempt(post.update));
+router.delete("/:post", attempt(post.delete));
 
 module.exports = router;

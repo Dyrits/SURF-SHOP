@@ -18,7 +18,7 @@ const routers = {
   reviews: require("./routes/reviews")
 };
 
-const User = require("./models/user");
+const User = require("./models/User");
 
 const app = express();
 

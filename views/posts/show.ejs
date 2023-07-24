@@ -18,3 +18,19 @@
         <input type="submit" value="Delete post">
     </form>
 </div>
+<h2>Reviews</h2>
+<h3>Create a review</h3>
+<form action="/posts/<%= post.id %>/reviews" method="POST">
+    <textarea name="content" id="" cols="30" rows="10" required></textarea>
+    <input type="number" name="rating" min="1" max="5" step="1" required>
+    <input type="submit" value="Publish review">
+</form>
+<% for (review of post.reviews) { %>
+    <div>
+        <p><%= review.content %></p>
+        <p>Rating: <%= review.rating %></p>
+        <form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST">
+            <input type="submit" value="Delete review">
+        </form>
+    </div>
+<% } %>
