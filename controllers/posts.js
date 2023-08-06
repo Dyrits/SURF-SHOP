@@ -20,7 +20,12 @@ module.exports = {
         response.render("posts/new", { title: "Surf Shop - Create a new post" });
       },
       show: async ({ params }, response, next) => {
-        const post = await Post.findById(params.post).populate({ path: "reviews", options: { sort: { "_id": -1 } } });
+        const post = await Post.findById(params.post).populate({
+          path: "reviews", options: { sort: { "_id": -1 } }, populate: {
+            path: "author",
+            model: "User"
+          }
+        });
         response.render("posts/show", { post });
       },
       edit: async ({ params }, response, next) => {

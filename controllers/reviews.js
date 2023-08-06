@@ -5,7 +5,7 @@ module.exports = {
   review: {
     create: async ({ params, body, user, session }, response, next) => {
       const post = await Post.findById(params.post);
-      // body.author = user._id;
+      body.author = user._id;
       const review = await Review.create(body);
       post.reviews.push(review);
       post.save();

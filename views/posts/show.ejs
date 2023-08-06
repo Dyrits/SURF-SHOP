@@ -27,6 +27,7 @@
 </form>
 <% for (review of post.reviews) { %>
     <div>
+        <p>Author: <%= review.author.username %></p>
         <p><%= review.content %></p>
         <p>Rating: <%= review.rating %></p>
         <form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST">

@@ -6,10 +6,15 @@ module.exports = {
         next(error);
       });
   },
-  locals: ({ session }, response, next) => {
+  locals: (request, response, next) => {
+    request.user = {
+      _id: "64cf7c72471c66949b1b7754",
+      username: "dyrits"
+    };
+    response.locals.user = request.user;
     response.locals.title = "Surf Shop";
-    response.locals.messages = { ...session.messages };
-    delete session.messages;
+    response.locals.messages = { ...request.session.messages };
+    delete request.session.messages;
     next();
   }
 };
