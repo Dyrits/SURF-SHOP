@@ -1,3 +1,4 @@
+const User = require("../models/User");
 module.exports = {
   attempt: callback => (request, response, next) => {
     Promise.resolve(callback(request, response, next))
@@ -6,11 +7,9 @@ module.exports = {
         next(error);
       });
   },
-  locals: (request, response, next) => {
-    request.user = {
-      _id: "64cf7c72471c66949b1b7754",
-      username: "dyrits"
-    };
+  locals: async (request, response, next) => {
+    request.user = await User.findOne({ username: "dyrits" });
+    request.user = request.user ||await User.register(new User({ username: "dyrits" }), "PASSWORD");
     response.locals.user = request.user;
     response.locals.title = "Surf Shop";
     response.locals.messages = { ...request.session.messages };
