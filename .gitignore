@@ -134,3 +134,6 @@ dist
 
 # Local data
 uploads/
+
+# MongoDB
+.mongo-data

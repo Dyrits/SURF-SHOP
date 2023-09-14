@@ -12,7 +12,10 @@ module.exports = {
       session.success = "Review created successfully!";
       response.redirect(`/posts/${post.id}`);
     },
-    update: async (request, response, next) => {
+    update: async ({ params, body, session }, response, next) => {
+      await Review.findByIdAndUpdate(params.review, { $set: { ...body } });
+      session.success = "Review updated successfully!";
+      response.redirect(`/posts/${params.post}`);
     },
     delete: async (request, response, next) => {
     }
