@@ -9,7 +9,7 @@ module.exports = {
   },
   locals: async (request, response, next) => {
     request.user = await User.findOne({ username: "dyrits" });
-    request.user = request.user ||await User.register(new User({ username: "dyrits" }), "PASSWORD");
+    request.user = request.user || await User.register(new User({ username: "dyrits" }), "PASSWORD");
     response.locals.user = request.user;
     response.locals.title = "Surf Shop";
     response.locals.messages = { ...request.session.messages };
