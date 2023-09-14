@@ -39,7 +39,7 @@ module.exports = {
       const coordinates = await mapbox.search(body.location);
       body = Object.assign(body, { coordinates });
       const { id } = await Post.create(body);
-      session.messages = {};
+      session.messages = session.messages || {};
       session.messages.success = "Post created successfully!";
       response.redirect(`/posts/${id}`);
     },

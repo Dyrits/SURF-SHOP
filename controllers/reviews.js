@@ -9,12 +9,14 @@ module.exports = {
       const review = await Review.create(body);
       post.reviews.push(review);
       post.save();
-      session.success = "Review created successfully!";
+      session.messages = session.messages || {};
+      session.messages.success = "Review created successfully!";
       response.redirect(`/posts/${post.id}`);
     },
     update: async ({ params, body, session }, response, next) => {
       await Review.findByIdAndUpdate(params.review, { $set: { ...body } });
-      session.success = "Review updated successfully!";
+      session.messages = session.messages || {};
+      session.messages.success = "Review updated successfully!";
       response.redirect(`/posts/${params.post}`);
     },
     delete: async (request, response, next) => {
