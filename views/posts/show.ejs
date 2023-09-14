@@ -44,14 +44,3 @@
         </form>
     </div>
 <% } %>
-
-<script>
-  const toggles = document.querySelectorAll('.toggle-edit-review-form');
-  toggles.forEach(toogle => {
-    toogle.addEventListener("click", () => {
-      toogle.textContent = toogle.textContent === "Edit review" ? "Cancel" : "Edit review";
-      const form = toogle.nextElementSibling;
-      form.classList.toggle("hidden");
-    });
-  });
-</script>

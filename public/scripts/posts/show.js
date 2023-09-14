@@ -1,3 +1,5 @@
+// Mapbox
+
 mapboxgl.accessToken = "pk.eyJ1IjoiZHlyaXRzIiwiYSI6ImNsZmZiMWw4bDNuZnkzc250NHgxMm9uc2sifQ.q9tvE4qr0wJeAyFNc-bRSg";
 
 const map = new mapboxgl.Map({
@@ -24,3 +26,15 @@ div.className = "marker";
 new mapboxgl.Marker(div).setLngLat(marker.geometry.coordinates).setPopup(
   new mapboxgl.Popup({offset: 25}).setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`)
 ).addTo(map);
+
+
+// Reviews - Toggle the form
+
+const toggles = document.querySelectorAll('.toggle-edit-review-form');
+toggles.forEach(toogle => {
+  toogle.addEventListener("click", () => {
+    toogle.textContent = toogle.textContent === "Edit review" ? "Cancel" : "Edit review";
+    const form = toogle.nextElementSibling;
+    form.classList.toggle("hidden");
+  });
+});
