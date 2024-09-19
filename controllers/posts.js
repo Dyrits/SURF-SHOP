@@ -58,9 +58,11 @@ module.exports = {
       await post.save();
       response.redirect(`/posts/${params.post}`);
     },
-    delete: async ({ params }, response, next) => {
+    delete: async ({ params, session }, response, next) => {
       const post = await Post.findByIdAndDelete(params.post);
       await cloudinary.delete(post.images.map(image => image.id));
+      session.messages = session.messages || {};
+      session.messages.success = "Post deleted successfully!";
       response.redirect("/posts");
     }
   }

@@ -1,0 +1,28 @@
+<h2>Reviews</h2>
+<h3>Create a review</h3>
+<form action="/posts/<%= post.id; %>/reviews" method="POST">
+    <textarea name="content" id="" cols="30" rows="10" required></textarea>
+    <input type="number" name="rating" min="1" max="5" step="1" required>
+    <input type="submit" value="Publish review">
+</form>
+<% for (review of post.reviews) { %>
+    <div>
+        <p>Author: <%= review.author.username; %></p>
+        <p><%= review.content; %></p>
+        <p>Rating: <%= review.rating; %></p>
+        <% if (user && user._id.equals(review.author._id)) { %>
+            <div>
+                <button class="toggle-edit-review-form">Edit review</button>
+                <form action="/posts/<%= post.id; %>/reviews/<%= review.id; %>?_method=PUT" method="POST"
+                      class="edit-review-form hidden">
+                    <textarea name="content" id="" cols="30" rows="10" required><%= review.content; %></textarea>
+                    <input type="number" name="rating" min="1" max="5" step="1" required value="<%= review.rating; %>">
+                    <input type="submit" value="Update review">
+                </form>
+            </div>
+            <form action="/posts/<%= post.id; %>/reviews/<%= review.id; %>?_method=DELETE" method="POST">
+                <input type="submit" value="Delete review">
+            </form>
+        <% } %>
+    </div>
+<% } %>
