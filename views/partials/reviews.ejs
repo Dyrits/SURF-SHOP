@@ -2,7 +2,20 @@
 <h3>Create a review</h3>
 <form action="/posts/<%= post.id; %>/reviews" method="POST">
     <textarea name="content" id="" cols="30" rows="10" required></textarea>
-    <input type="number" name="rating" min="1" max="5" step="1" required>
+    <fieldset class="starability-basic">
+        <legend>Rating:</legend>
+        <input type="radio" id="norate" class="input-norate" name="rating" value="0" checked aria-label="No rating." />
+        <input type="radio" id="rate1" name="rating" value="1" />
+        <label for="rate1" title="Terrible">1 star</label>
+        <input type="radio" id="rate2" name="rating" value="2" />
+        <label for="rate2" title="Not good">2 stars</label>
+        <input type="radio" id="rate3" name="rating" value="3" />
+        <label for="rate3" title="Average">3 stars</label>
+        <input type="radio" id="rate4" name="rating" value="4" />
+        <label for="rate4" title="Very good">4 stars</label>
+        <input type="radio" id="rate5" name="rating" value="5" />
+        <label for="rate5" title="Amazing">5 stars</label>
+    </fieldset>
     <input type="submit" value="Publish review">
 </form>
 <% for (review of post.reviews) { %>
@@ -16,7 +29,21 @@
                 <form action="/posts/<%= post.id; %>/reviews/<%= review.id; %>?_method=PUT" method="POST"
                       class="edit-review-form hidden">
                     <textarea name="content" id="" cols="30" rows="10" required><%= review.content; %></textarea>
-                    <input type="number" name="rating" min="1" max="5" step="1" required value="<%= review.rating; %>">
+                    <fieldset class="starability-basic">
+                        <legend>Rating:</legend>
+                        <input type="radio" id="edit-norate" class="input-norate" name="rating" value="0"
+                               aria-label="No rating." <%= review.rating === 0 ? 'checked' : String() %> />
+                        <input type="radio" id="edit-rate1" name="rating" value="1" <%= review.rating === 1 ? 'checked' : String() %> />
+                        <label for="edit-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="edit-rate2" name="rating" value="2" <%= review.rating === 2 ? 'checked' : String() %> />
+                        <label for="edit-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="edit-rate3" name="rating" value="3" <%= review.rating === 3 ? 'checked' : String() %> />
+                        <label for="edit-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="edit-rate4" name="rating" value="4" <%= review.rating === 4 ? 'checked' : String() %> />
+                        <label for="edit-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="edit-rate5" name="rating" value="5" <%= review.rating === 5 ? 'checked' : String() %> />
+                        <label for="edit-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
                     <input type="submit" value="Update review">
                 </form>
             </div>

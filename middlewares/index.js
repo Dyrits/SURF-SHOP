@@ -1,5 +1,5 @@
-import User from "@/models/User.js";
-import  Review from "@/models/Review.js";
+import User from "#/models/User.js";
+import  Review from "#/models/Review.js";
 
 export default {
   attempt: callback => (request, response, next) => {

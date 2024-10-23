@@ -1,8 +1,8 @@
 import express from "npm:express";
 import multer from "npm:multer";
 
-import controller from "@/controllers/posts.js";
-import middlewares from "@/middlewares/index.js";
+import controller from "#/controllers/posts.js";
+import middlewares from "#/middlewares/index.js";
 
 const { posts, post } = controller;
 const { attempt } = middlewares;

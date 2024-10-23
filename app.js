@@ -8,12 +8,12 @@ import session from "npm:express-session";
 import passport from "npm:passport";
 import override from "npm:method-override";
 
-import mongoose from "@/database/mongoose.js";
-import middleware from "@/middlewares/index.js";
-import routers from "@/routes/index.js";
+import mongoose from "#/database/mongoose.js";
+import middleware from "#/middlewares/index.js";
+import routers from "#/routes/index.js";
 
-import User from "@/models/User.js";
-import middlewares from "@/middlewares/index.js";
+import User from "#/models/User.js";
+import middlewares from "#/middlewares/index.js";
 
 const app = express();
 
@@ -74,10 +74,12 @@ app.use((error, request, response, next) => {
 });
 
 app.listen(3000, () => {
-  mongoose.connect();
-  mongoose.database.on("error", console.error.bind(console, "Connection error:"));
-  mongoose.database.once("open", () => {
-    console.log("The connection to the database has been successfully established.");
-  });
+  mongoose.connect()
+    .then(() => {
+      console.log("The connection to the database has been successfully established.");
+    })
+    .catch((error) => {
+      console.error("Connection error:", error);
+    });
   console.log("Server is running on http://localhost:3000.");
 });

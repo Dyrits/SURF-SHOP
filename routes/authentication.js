@@ -1,6 +1,6 @@
 import express from "npm:express";
-import controller from "@/controllers/authentication.js"
-import middlewares from "@/middlewares/index.js";
+import controller from "#/controllers/authentication.js"
+import middlewares from "#/middlewares/index.js";
 
 const { signin, signup, signout } = controller
 const { attempt } = middlewares;

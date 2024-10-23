@@ -1,6 +1,6 @@
 import mongoose from "npm:mongoose";
 
-import Review from "@/models/Review.js";
+import Review from "#/models/Review.js";
 
 const PostSchema = new mongoose.Schema({
     title: String,

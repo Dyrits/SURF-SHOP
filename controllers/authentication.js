@@ -1,6 +1,6 @@
 import passport from "npm:passport";
 
-import User from "@/models/User.js";
+import User from "#/models/User.js";
 
 export default {
   async signup({ body }, response, next) {

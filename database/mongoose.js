@@ -2,8 +2,8 @@ import mongoose from "npm:mongoose";
 
 export default {
   schema: "surf-shop",
-  host: process.env.HOST || "localhost",
-  port: process.env.PORT || 27017,
+  host: Deno.env.get("DATABASE_HOST") || "database",
+  port: Deno.env.get("DATABASE_PORT") || 27017,
   async connect() {
     await mongoose
       .connect(`mongodb://${this.host}:${this.port}/${this.schema}`)

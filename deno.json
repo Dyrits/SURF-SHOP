@@ -3,7 +3,7 @@
     "watch": "deno run --allow-all --watch ./app.js & deno fmt --watch"
   },
   "imports": {
-    "@/": "./"
+    "#/": "./"
   },
   "fmt": {
     "lineWidth": 120,

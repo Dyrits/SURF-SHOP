@@ -1,5 +1,5 @@
-import Post from "@/models/Post.js";
-import Review from "@/models/Review.js";
+import Post from "#/models/Post.js";
+import Review from "#/models/Review.js";
 
 export default {
   review: {

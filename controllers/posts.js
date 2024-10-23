@@ -1,9 +1,9 @@
 import multer from "npm:multer";
 
-import cloudinary from "@/services/cloudinary.js";
-import mapbox from "@/services/mapbox.js";
+import cloudinary from "#/services/cloudinary.js";
+import mapbox from "#/services/mapbox.js";
 
-import Post from "@/models/Post.js";
+import Post from "#/models/Post.js";
 
 export default {
   posts: {
