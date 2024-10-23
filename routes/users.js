@@ -1,8 +1,9 @@
-const express = require("express");
+import express from "npm:express";
+
 const router = express.Router();
 
 router.get("/", (request, response, next) => {
   response.send("USERS");
 });
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const Post = require("../models/Post");
-const Review = require("../models/Review");
+import Post from "@/models/Post.js";
+import Review from "@/models/Review.js";
 
-module.exports = {
+export default {
   review: {
     create: async ({ params, body, user, session }, response, next) => {
       const post = await Post.findById(params.post).populate("reviews").exec();

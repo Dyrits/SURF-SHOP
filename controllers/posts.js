@@ -1,11 +1,11 @@
-const multer = require("multer");
+import multer from "npm:multer";
 
-const cloudinary = require("../services/cloudinary");
-const mapbox = require("../services/mapbox");
+import cloudinary from "@/services/cloudinary.js";
+import mapbox from "@/services/mapbox.js";
 
-const Post = require("../models/Post");
+import Post from "@/models/Post.js";
 
-module.exports = {
+export default {
   posts: {
     render: {
       index: async (request, response, next) => {

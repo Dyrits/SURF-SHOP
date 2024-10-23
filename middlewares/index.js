@@ -1,7 +1,7 @@
-const User = require("../models/User");
-const Review = require("../models/Review");
+import User from "@/models/User.js";
+import  Review from "@/models/Review.js";
 
-module.exports = {
+export default {
   attempt: callback => (request, response, next) => {
     Promise.resolve(callback(request, response, next))
       .catch(error => {

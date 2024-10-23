@@ -1,36 +1,25 @@
-require("dotenv").config();
-const createError = require("http-errors");
-const express = require("express");
-const engine = require("ejs-mate");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const session = require("express-session");
-const passport = require("passport");
-const override = require("method-override");
+import * as path from "jsr:@std/path";
+import createError from "npm:http-errors";
+import express from "npm:express";
+import engine from "npm:ejs-mate";
+import cookieParser from "npm:cookie-parser";
+import logger from "npm:morgan";
+import session from "npm:express-session";
+import passport from "npm:passport";
+import override from "npm:method-override";
 
-const mongoose = require("./database/mongoose");
+import mongoose from "@/database/mongoose.js";
+import middleware from "@/middlewares/index.js";
+import routers from "@/routes/index.js";
 
-const routers = {
-  index: require("./routes/index"),
-  users: require("./routes/users"),
-  posts: require("./routes/posts"),
-  reviews: require("./routes/reviews")
-};
-
-const User = require("./models/User");
+import User from "@/models/User.js";
+import middlewares from "@/middlewares/index.js";
 
 const app = express();
 
-mongoose.connect();
-mongoose.database.on("error", console.error.bind(console, "Connection error:"));
-mongoose.database.once("open", () => {
-  console.log("Connected to MongoDB!");
-});
-
 // View engine setup
 app.engine("ejs", engine);
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "ejs");
 
 // Middlewares:
@@ -38,7 +27,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(override("_method"));
 
 // Session configuration:
@@ -55,11 +44,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Local variables middleware
-app.use(require("./middleware").locals);
+// Local variables middlewares
+app.use(middlewares.locals);
 
 // Mount routes
-app.use("/", routers.index);
+app.use("/", routers.authentication);
 app.use("/users", routers.users);
 app.use("/posts", routers.posts);
 app.use("/posts/:post/reviews", routers.reviews);
@@ -84,4 +73,11 @@ app.use((error, request, response, next) => {
   response.redirect("back");
 });
 
-module.exports = app;
+app.listen(3000, () => {
+  mongoose.connect();
+  mongoose.database.on("error", console.error.bind(console, "Connection error:"));
+  mongoose.database.once("open", () => {
+    console.log("The connection to the database has been successfully established.");
+  });
+  console.log("Server is running on http://localhost:3000.");
+});

@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "watch": "deno run --allow-all --watch ./app.js & deno fmt --watch"
+  },
+  "imports": {
+    "@/": "./"
+  },
+  "fmt": {
+    "lineWidth": 120,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false,
+    "proseWrap": "preserve",
+    "include": [
+      "./src"
+    ]
+  }
+}

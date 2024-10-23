@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "npm:mongoose";
 
 const ReviewSchema = new mongoose.Schema({
     content: String,
@@ -6,4 +6,4 @@ const ReviewSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
-module.exports = mongoose.model("Review", ReviewSchema);
+export default mongoose.model("Review", ReviewSchema);

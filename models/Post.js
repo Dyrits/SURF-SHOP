@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "npm:mongoose";
 
-const Review = require("./Review");
+import Review from "@/models/Review.js";
 
 const PostSchema = new mongoose.Schema({
     title: String,
@@ -21,4 +21,4 @@ PostSchema.pre("remove", async function() {
     });
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+export default mongoose.model("Post", PostSchema);

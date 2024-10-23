@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "npm:mongoose";
 
-module.exports = {
+export default {
   schema: "surf-shop",
   host: process.env.HOST || "localhost",
   port: process.env.PORT || 27017,
@@ -13,3 +13,5 @@ module.exports = {
   },
   database: mongoose.connection
 };
+
+

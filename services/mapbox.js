@@ -1,7 +1,8 @@
-const geocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const client = geocoding({ accessToken: process.env.MAPBOX_TOKEN });
+import geocoding from "npm:@mapbox/mapbox-sdk/services/geocoding.js";
 
-module.exports = {
+const client = geocoding({ accessToken: Deno.env.get("MAPBOX_TOKEN") });
+
+export default {
   search: async location =>
     client
       .forwardGeocode({ limit: 1, query: location })
