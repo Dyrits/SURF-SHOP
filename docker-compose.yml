@@ -1,10 +1,29 @@
-version: "3.5"
 services:
   mongo:
-    image: mongo
+    container_name: database
+    image: mongo:latest
     ports:
       - "27017:27017"
     expose:
       - "27017"
     volumes:
-      - ./.mongo-data:/data/db
+      - mongo-data:/data/db
+  deno-server:
+    container_name: server
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+        - action: sync+restart
+          path: ./deno.json
+          target: /app/deno.json
+    command: "deno task watch"
+
+volumes:
+  mongo-data:
