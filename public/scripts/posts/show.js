@@ -38,3 +38,10 @@ toggles.forEach(toogle => {
     form.classList.toggle("hidden");
   });
 });
+
+// Review - Clear the rating:
+const button = document.querySelector('.clear-rating');
+button.addEventListener("click", () => {
+  const zero = button.nextElementSibling;
+  zero.click();
+});
