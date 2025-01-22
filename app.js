@@ -9,11 +9,11 @@ import passport from "npm:passport";
 import override from "npm:method-override";
 
 import mongoose from "#/database/mongoose.js";
-import middleware from "#/middlewares/index.js";
+import seed from "#/database/seed.js";
+import middlewares from "#/middlewares/index.js";
 import routers from "#/routes/index.js";
 
 import User from "#/models/User.js";
-import middlewares from "#/middlewares/index.js";
 
 const app = express();
 
@@ -75,8 +75,9 @@ app.use((error, request, response, next) => {
 
 app.listen(3000, () => {
   mongoose.connect()
-    .then(() => {
+    .then(async () => {
       console.log("The connection to the database has been successfully established.");
+      process.env.ENVIRONMENT === "development" && await seed();
     })
     .catch((error) => {
       console.error("Connection error:", error);

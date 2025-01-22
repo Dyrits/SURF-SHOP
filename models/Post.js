@@ -1,4 +1,5 @@
 import mongoose from "npm:mongoose";
+import mongoosePaginate from "npm:mongoose-paginate-v2";
 
 import Review from "#/models/Review.js";
 
@@ -20,5 +21,7 @@ PostSchema.pre("remove", async function() {
         }
     });
 });
+
+PostSchema.plugin(mongoosePaginate);
 
 export default mongoose.model("Post", PostSchema);
