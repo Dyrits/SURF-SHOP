@@ -16,7 +16,6 @@ services:
         - action: sync
           path: ./
           target: /app
-    command: "deno task watch"
 
 volumes:
   mongo-data:

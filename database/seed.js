@@ -6,7 +6,7 @@ import User from "#/models/User.js";
 export default async () => {
   const user = await User.findOne({ username: "dyrits" }) || await User.register(new User({ username: "dyrits" }), "PASSWORD");
   await Post.deleteMany({})
-  const posts = Array.from({ length: 40 }, () => {
+  const posts = Array.from({ length: 50 }, () => {
     return new Post({
       title: faker.lorem.words(),
       description: faker.lorem.paragraph(),

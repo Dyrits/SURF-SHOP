@@ -9,12 +9,10 @@ export default {
   posts: {
     render: {
       index: async ({  query  }, response, next) => {
-        console.log("QUERY", query);
         const posts = await Post.paginate({}, {
           page: query.page || 1,
           limit: 10
         });
-        console.log("POSTS", posts);
         response.render("posts/index", { posts, title: "Surf Shop - Posts" });
       }
     }

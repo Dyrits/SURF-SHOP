@@ -1,0 +1,14 @@
+<div>
+    <% if (posts.prevPage) { %>
+        <a href="/posts?page=<%= posts.prevPage %>">&lt;</a>
+    <% } %>
+    <% for (let page = 1; page <= posts.totalPages; page ++) { %>
+        <a
+                href="/posts?page=<%= page %>"
+                style="<%= page === posts.page ? 'font-weight: 900; color: #000;' : '' %>"
+        ><%= page %></a>
+    <% } %>
+    <% if (posts.nextPage) { %>
+        <a href="/posts?page=<%= posts.nextPage %>">&gt;</a>
+    <% } %>
+</div>
